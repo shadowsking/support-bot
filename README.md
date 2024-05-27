@@ -1,6 +1,8 @@
 # support-bot
-Vk и telegram чат-боты, который отвечают на типичные вопросы.
+Vk и [telegram](https://t.me/MyCloudSupportBot) чат-боты, который отвечают на типичные вопросы.
 Используется [DialogFlow](https://dialogflow.cloud.google.com/#/getStarted) для обработки текстовых запросов.
+
+![support_bot](https://github.com/shadowsking/support-bot/assets/21194893/108cdaa8-2950-4160-ac5c-72abb851b637)
 
 ### Установка
 
