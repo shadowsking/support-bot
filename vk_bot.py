@@ -1,6 +1,5 @@
 import logging
 import os
-import random
 
 import dotenv
 import vk_api
@@ -18,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 def reply_text(event, api, message) -> None:
     api.messages.send(
-        user_id=event.user_id, message=message, random_id=random.randint(1, 1000)
+        user_id=event.user_id, message=message, random_id=vk_api.utils.get_random_id()
     )
 
 
