@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 
@@ -72,6 +73,16 @@ def learn_intents_by_json(project_id, path) -> None:
 if __name__ == "__main__":
     dotenv.load_dotenv()
 
+    parser = argparse.ArgumentParser(description="Create new intents from json file")
+    parser.add_argument(
+        "-f",
+        "--file",
+        type=str,
+        help="The path to the json file with the questions",
+        default="questions.json",
+    )
+    args = parser.parse_args()
+
     learn_intents_by_json(
-        project_id=os.environ["GOOGLE_CLOUD_PROJECT"], path="questions.json"
+        project_id=os.environ["GOOGLE_CLOUD_PROJECT"], path=parser.file
     )

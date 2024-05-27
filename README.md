@@ -9,10 +9,16 @@ git clone https://github.com/shadowsking/support-bot.git
 ```
 
 Создайте виртуальное окружение
-windows:
+
+Windows:
 ```bash
-python -m venv venv
+python3 -m venv venv
 source venv/scripts/activate
+```
+Linux:
+```bash
+python3 -m venv venv
+source venv/bin/activate
 ```
 
 Установите зависимости
@@ -33,7 +39,7 @@ pip install -r requirements.txt
 #### Обучение
 Для обучения модели нужно заполнить questions.json и запустить:
 ```bash
-python dialog_flow.py
+python dialog_flow.py -f questions.json
 ```
 
 #### Telegram бот:
