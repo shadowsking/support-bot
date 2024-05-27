@@ -5,7 +5,9 @@ import dotenv
 from google.cloud import dialogflow
 
 
-def detect_intent_by_text(project_id, session_id, text, language_code=None):
+def detect_intent_by_text(
+    project_id, session_id, text, language_code=None
+) -> None | str:
     """
     Returns the result of detect intent with text as input.
 
@@ -21,10 +23,15 @@ def detect_intent_by_text(project_id, session_id, text, language_code=None):
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
+    if response.query_result.intent.is_fallback:
+        return None
+
     return response.query_result.fulfillment_text
 
 
-def create_intent(project_id, display_name, training_phrases_parts, message_texts):
+def create_intent(
+    project_id, display_name, training_phrases_parts, message_texts
+) -> None:
     """Create an intent of the given intent type."""
     intents_client = dialogflow.IntentsClient()
 
@@ -50,7 +57,7 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     print("Intent created: {}".format(response))
 
 
-def learn_intents_by_json(project_id, path):
+def learn_intents_by_json(project_id, path) -> None:
     with open(path, "r", encoding="utf-8") as f:
         questions = json.load(f)
         for name, data in questions.items():

@@ -8,13 +8,13 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from dialog_flow import detect_intent_by_text
 
 
-def reply_text(event, api, message):
+def reply_text(event, api, message) -> None:
     api.messages.send(
         user_id=event.user_id, message=message, random_id=random.randint(1, 1000)
     )
 
 
-def listen_messages(token):
+def listen_messages(token) -> None:
     vk_session = vk_api.VkApi(token=token)
     long_poll = VkLongPoll(vk_session)
     api = vk_session.get_api()
@@ -26,10 +26,13 @@ def listen_messages(token):
                 text=event.text,
                 language_code="ru-RU",
             )
+            if not text:
+                continue
+
             reply_text(event, api, text)
 
 
-def main():
+def main() -> None:
     dotenv.load_dotenv()
 
     listen_messages(os.environ["VK_API_KEY"])
