@@ -35,8 +35,8 @@ def help_command(update: Update, context: CallbackContext) -> None:
 
 def echo(update: Update, context: CallbackContext) -> None:
     text = detect_intent_by_text(
-        project_id=os.environ["DIALOG_FLOW_PROJECT_ID"],
-        session_id=1,
+        project_id=os.environ["GOOGLE_CLOUD_PROJECT"],
+        session_id=update.message.chat_id,
         text=update.message.text,
         language_code="ru-RU",
     )
