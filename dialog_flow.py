@@ -84,5 +84,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     learn_intents_by_json(
-        project_id=os.environ["GOOGLE_CLOUD_PROJECT"], path=parser.file
+        project_id=os.environ["GOOGLE_CLOUD_PROJECT"], path=args.file
     )
