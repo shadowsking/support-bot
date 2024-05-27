@@ -14,8 +14,10 @@ def reply_text(event, api, message) -> None:
     )
 
 
-def listen_messages(token) -> None:
-    vk_session = vk_api.VkApi(token=token)
+def main() -> None:
+    dotenv.load_dotenv()
+
+    vk_session = vk_api.VkApi(token=os.environ["VK_API_KEY"])
     long_poll = VkLongPoll(vk_session)
     api = vk_session.get_api()
     for event in long_poll.listen():
@@ -30,12 +32,6 @@ def listen_messages(token) -> None:
                 continue
 
             reply_text(event, api, text)
-
-
-def main() -> None:
-    dotenv.load_dotenv()
-
-    listen_messages(os.environ["VK_API_KEY"])
 
 
 if __name__ == "__main__":

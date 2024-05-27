@@ -35,7 +35,7 @@ def help_command(update: Update, context: CallbackContext) -> None:
 
 def reply_text(update: Update, context: CallbackContext) -> None:
     text = detect_intent_by_text(
-        project_id=os.environ["GOOGLE_CLOUD_PROJECT"],
+        project_id=context.bot_data["project_id"],
         session_id=update.message.chat_id,
         text=update.message.text,
         language_code="ru-RU",
@@ -48,9 +48,11 @@ def reply_text(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     dotenv.load_dotenv()
-    updater = Updater(os.getenv("TELEGRAM_TOKEN"))
+
+    updater = Updater(os.environ["TELEGRAM_TOKEN"], use_context=True)
 
     dispatcher = updater.dispatcher
+    dispatcher.bot_data["project_id"] = os.environ["GOOGLE_CLOUD_PROJECT"]
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, reply_text))
