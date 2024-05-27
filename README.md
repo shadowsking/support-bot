@@ -1,1 +1,47 @@
 # support-bot
+Vk и telegram чат-боты, который отвечают на типичные вопросы.
+Используется [DialogFlow](https://dialogflow.cloud.google.com/#/getStarted) для обработки текстовых запросов.
+
+### Установка
+
+```bash
+git clone https://github.com/shadowsking/support-bot.git
+```
+
+Создайте виртуальное окружение
+windows:
+```bash
+python -m venv venv
+source venv/scripts/activate
+```
+
+Установите зависимости
+```bash
+pip install -r requirements.txt
+```
+
+Создайте '.env' файл и установите следующие аргументы:
+- TELEGRAM_TOKEN
+- TELEGRAM_LOGGER_TOKEN
+- TELEGRAM_CHAT_ID
+- VK_API_KEY
+- GOOGLE_CLOUD_PROJECT
+- GOOGLE_APPLICATION_CREDENTIALS
+
+### Запуск
+
+#### Обучение
+Для обучения модели нужно заполнить questions.json и запустить:
+```bash
+python dialog_flow.py
+```
+
+#### Telegram бот:
+```bash
+python telegram_bot.py
+```
+
+##### VK бот:
+```bash
+python vk_bot.py
+```
