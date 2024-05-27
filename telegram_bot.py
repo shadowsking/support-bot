@@ -12,6 +12,7 @@ from telegram.ext import (
 )
 
 from dialog_flow import detect_intent_by_text
+from handlers import TelegramLogsHandler
 
 # Enable logging
 logging.basicConfig(
@@ -46,8 +47,18 @@ def reply_text(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(text)
 
 
+def error_handler(update: Update, context: CallbackContext) -> None:
+    logger.error(msg="Errors:", exc_info=context.error)
+
+
 def main() -> None:
     dotenv.load_dotenv()
+
+    logger.setLevel(logging.WARNING)
+    handler = TelegramLogsHandler(
+        os.environ["TELEGRAM_LOGGER_TOKEN"], os.environ["TELEGRAM_CHAT_ID"]
+    )
+    logger.addHandler(handler)
 
     updater = Updater(os.environ["TELEGRAM_TOKEN"], use_context=True)
 
@@ -56,6 +67,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, reply_text))
+    dispatcher.add_error_handler(error_handler)
 
     updater.start_polling()
 
