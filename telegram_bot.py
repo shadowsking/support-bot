@@ -14,11 +14,6 @@ from telegram.ext import (
 from dialog_flow import detect_intent_by_text
 from handlers import TelegramLogsHandler
 
-# Enable logging
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
-
 logger = logging.getLogger(__name__)
 
 
@@ -40,10 +35,8 @@ def reply_text(update: Update, context: CallbackContext) -> None:
         session_id=update.message.chat_id,
         text=update.message.text,
         language_code="ru-RU",
+        fallback=True,
     )
-    if not text:
-        return
-
     update.message.reply_text(text)
 
 

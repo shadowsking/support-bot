@@ -8,10 +8,6 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from dialog_flow import detect_intent_by_text
 from handlers import TelegramLogsHandler
 
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
-
 logger = logging.getLogger(__name__)
 
 

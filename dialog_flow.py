@@ -7,7 +7,7 @@ from google.cloud import dialogflow
 
 
 def detect_intent_by_text(
-    project_id, session_id, text, language_code=None
+    project_id, session_id, text, language_code=None, fallback=False
 ) -> None | str:
     """
     Returns the result of detect intent with text as input.
@@ -24,7 +24,7 @@ def detect_intent_by_text(
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
-    if response.query_result.intent.is_fallback:
+    if not fallback and response.query_result.intent.is_fallback:
         return None
 
     return response.query_result.fulfillment_text
@@ -83,6 +83,4 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    learn_intents_by_json(
-        project_id=os.environ["GOOGLE_CLOUD_PROJECT"], path=args.file
-    )
+    learn_intents_by_json(project_id=os.environ["GOOGLE_CLOUD_PROJECT"], path=args.file)
