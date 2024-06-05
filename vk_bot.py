@@ -34,13 +34,13 @@ def main() -> None:
             continue
 
         try:
-            text = detect_intent_by_text(
+            is_fallback, text = detect_intent_by_text(
                 project_id=os.environ["GOOGLE_CLOUD_PROJECT"],
                 session_id=event.message_id,
                 text=event.text,
                 language_code="ru-RU",
             )
-            if not text:
+            if is_fallback:
                 continue
 
             reply_text(event, api, text)

@@ -30,12 +30,11 @@ def help_command(update: Update, context: CallbackContext) -> None:
 
 
 def reply_text(update: Update, context: CallbackContext) -> None:
-    text = detect_intent_by_text(
+    is_fallback, text = detect_intent_by_text(
         project_id=context.bot_data["project_id"],
         session_id=update.message.chat_id,
         text=update.message.text,
         language_code="ru-RU",
-        fallback=True,
     )
     update.message.reply_text(text)
 
